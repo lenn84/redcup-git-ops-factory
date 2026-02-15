@@ -11,7 +11,7 @@
 - **Engine:** Gitea Actions (GitHub Actions compatible)
 - **Runner:** Custom Go-based runners
 - **Security:** Organization-level secret injection; strict isolation of build/deploy tokens.
-
+```mermaid
 graph LR
     %% The Trigger
     Dev[👨‍💻 Developer] -->|Git Push| Gitea[📦 Gitea Repo]
@@ -26,6 +26,7 @@ graph LR
     
     %% The Deploy Phase
     Registry -->|SSH Pull| Production[🚀 Production Deployment]
+```
 
 ## 🏛️ Design Philosophy: "Dormant by Design"
 
