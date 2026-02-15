@@ -13,19 +13,19 @@
 - **Security:** Organization-level secret injection; strict isolation of build/deploy tokens.
 ```mermaid
 graph LR
-    %% The Trigger
-    Dev[👨‍💻 Developer] -->|Git Push| Gitea[📦 Gitea Repo]
-    
-    %% The Build Phase
-    Gitea -->|Webhook Trigger| Runner[🤖 Gitea Runner]
-    subgraph "LXC 1002: The Factory Floor"
-        Runner -->|Spawns| Build_Container[🐳 Ephemeral Build Container]
-        Build_Container -->|Docker Build| Artifact[📦 Docker Image]
-        Artifact -->|Push (Local LAN)| Registry[🏢 Private Registry :3000]
+
+    Dev[Developer] -->|Git Push| Gitea[Gitea Repo]
+
+    Gitea -->|Webhook Trigger| Runner[Gitea Runner]
+
+    subgraph LXC_1002_Factory_Floor
+        Runner -->|Spawns| BuildContainer[Ephemeral Build Container]
+        BuildContainer -->|Docker Build| Artifact[Docker Image]
+        Artifact -->|Push Local LAN| Registry[Private Registry 3000]
     end
-    
-    %% The Deploy Phase
-    Registry -->|SSH Pull| Production[🚀 Production Deployment]
+
+    Registry -->|SSH Pull| Production[Production Deployment]
+
 ```
 
 ## 🏛️ Design Philosophy: "Dormant by Design"
