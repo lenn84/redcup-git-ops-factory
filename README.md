@@ -82,6 +82,7 @@ Engineered a controlled "Hard Reset" protocol:
 
 ```bash
 docker volume rm runner_data
+```
 - **Result:** 
   This forced a fresh registration handshake using the correct host IP: 192.168.1.54
   A persistent identity for the build runner.
@@ -89,14 +90,32 @@ docker volume rm runner_data
 2️⃣ The Registry Authentication Trap
 
 Challenge:
-The pipeline failed with:
-
-401 Unauthorized
+The pipeline failed with: 401 Unauthorized
 
 
-The default Gitea GITHUB_TOKEN had read-only access and could not push to the Package Registry.
+The default Gitea {GITHUB_TOKEN} had read-only access and could not push to the Package Registry.
 
 Solution:
 Created a dedicated Service Bot account with write:packages scope and injected it as a secure secret.
 
-Result: Ephemeral build containers can securely push artifacts to the local registry.
+Result: 
+Ephemeral build containers can securely push artifacts to the local registry.
+
+📘 Standard Integration Procedure (SIP)
+
+To standardize onboarding, I developed the RCIP-01 Protocol:
+
+Repository Requirement
+Must contain a Dockerfile
+(The "How")
+
+Workflow Contract must include:
+
+```bash
+.gitea/workflows/build.yaml
+```
+
+(The "When")
+
+Landing Zone Control
+Production directories (e.g., /data/production/app) must be pre-provisioned by administrators to prevent unmanaged container sprawl.
