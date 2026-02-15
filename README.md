@@ -119,3 +119,30 @@ Workflow Contract must include:
 
 Landing Zone Control
 Production directories (e.g., /data/production/app) must be pre-provisioned by administrators to prevent unmanaged container sprawl.
+
+🛠️ Tech Stack Details
+
+Orchestration:
+Docker Compose (Production) + Gitea Actions (Build)
+
+Runner Technology:
+
+{act_runner} executing Docker-in-Docker builds via privileged socket binding:
+```bash
+/var/run/docker.sock
+```
+
+Network Path:
+Zero-latency internal transfers.
+The runner pushes to the registry via the Docker bridge:
+
+redcup_net
+
+
+The physical router is never involved.
+
+
+---
+
+
+
